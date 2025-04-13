@@ -12,4 +12,4 @@ createRoot(document.getElementById('root')).render(
 )
 
 //powershell -ExecutionPolicy ByPass npm run dev
-// /http://localhost:5173/
+//powershell -ExecutionPolicy ByPass
