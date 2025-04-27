@@ -5,7 +5,7 @@ const DishDetail = () => {
 
   return (
     <div>
-        <h3> Empty For Now.. </h3>
+        <h3>DishDetail Empty For Now.. </h3>
     </div>
   )
 }

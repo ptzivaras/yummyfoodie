@@ -5,7 +5,7 @@ const OrderReview = () => {
 
   return (
     <div>
-        <h3> Empty For Now.. </h3>
+        <h3>Order Review Empty For Now.. </h3>
     </div>
   )
 }
