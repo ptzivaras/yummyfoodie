@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchDishes } from '../features/dishes/dishesSlice'
+import DishDetail from './DishDetail'
 
 const DishList = () => {
   const dispatch = useDispatch()
@@ -14,16 +15,11 @@ const DishList = () => {
   if (status === 'failed')  return <div>Error: {error}</div>
 
   return (
-    // <div>
-    //   <h3>DishList Empty For Now.. </h3>
-    // </div>
-    <ul className="space-y-2">
+    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
       {list.map(d => (
-        <li key={d.id} className="p-2 bg-white rounded shadow">
-          {d.name} — €{d.price.toFixed(2)}
-        </li>
+        <DishDetail key={d.id} dish={d} />
       ))}
-    </ul>
+    </div>
   )
 }
 
