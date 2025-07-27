@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "U02vLayoLLk=",
+  "success": true,
+  "projectFilePath": "E:\\1.CodeProjects\\YammyRestaurant\\apiserver\\YummyGreekBackend\\YummyGreekBackend.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Sonic\\.nuget\\packages\\microsoft.aspnetcore.openapi\\9.0.3\\microsoft.aspnetcore.openapi.9.0.3.nupkg.sha512",
+    "C:\\Users\\Sonic\\.nuget\\packages\\microsoft.openapi\\1.6.17\\microsoft.openapi.1.6.17.nupkg.sha512"
+  ],
+  "logs": []
+}

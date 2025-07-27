@@ -1,0 +1,6 @@
+@YummyGreekBackend_HostAddress = http://localhost:5195
+
+GET {{YummyGreekBackend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
