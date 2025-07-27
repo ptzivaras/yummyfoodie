@@ -2,10 +2,12 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchDishes } from '../features/dishes/dishesSlice'
 import DishDetail from './DishDetail'
+import { selectFilteredDishes } from '../features/dishes/dishesSlice';
 
 const DishList = () => {
   const dispatch = useDispatch()
-  const { list, status, error } = useSelector(s => s.dishes)
+  const dishes = useSelector(selectFilteredDishes);
+const { status, error } = useSelector(s => s.dishes);
 
   useEffect(() => {
     if (status === 'idle') dispatch(fetchDishes())

@@ -33,5 +33,34 @@ const dishesSlice = createSlice({
   }
 })
 
+
+export const selectFilteredDishes = (state) => {
+  const { list } = state.dishes;
+  const { dietaryPreferences, allergens, priceRange } = state.filters;
+
+  return list.filter(dish => {
+    // Price filter
+    if (dish.price < priceRange[0] || dish.price > priceRange[1]) return false;
+
+    // Dietary preferences filter
+    if (dietaryPreferences.length > 0) {
+      const hasAllPreferences = dietaryPreferences.every(pref => 
+        dish.tags.dietaryPreferences.includes(pref)
+      );
+      if (!hasAllPreferences) return false;
+    }
+
+    // Allergens filter (exclude dishes containing selected allergens)
+    if (allergens.length > 0) {
+      const hasExcludedAllergen = allergens.some(allergen => 
+        dish.tags.allergens.includes(allergen)
+      );
+      if (hasExcludedAllergen) return false;
+    }
+
+    return true;
+  });
+};
+
 export default dishesSlice.reducer
 

@@ -1,79 +1,96 @@
-// import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { 
+  setDietaryPreference, 
+  setAllergens, 
+  setPriceRange, 
+  resetFilters 
+} from '../features/filters/filtersSlice';
 
-// const FilterPanel = ({ onFilterChange }) => {
-//   const [dietary, setDietary] = useState({
-//     Vegan: false,
-//     GlutenFree: false,
-//     LactoseFree: false,
-//     NutFree: false,
-//   });
+const FilterPanel = () => {
+  const dispatch = useDispatch();
+  const { dietaryPreferences, allergens, priceRange } = useSelector(state => state.filters);
 
-//   const [priceRange, setPriceRange] = useState('');
-//   const [allergen, setAllergen] = useState('');
+  const dietaryOptions = [
+    { id: 'vegetarian', label: 'Vegetarian' },
+    { id: 'vegan', label: 'Vegan' },
+    { id: 'gluten-free', label: 'Gluten-Free' }
+  ];
 
-//   const handleDietaryChange = (e) => {
-//     const { name, checked } = e.target;
-//     const newDietary = { ...dietary, [name]: checked };
-//     setDietary(newDietary);
-//     onFilterChange({ dietary: newDietary, priceRange, allergen });
-//   };
+  const allergenOptions = [
+    { id: 'contains-nuts', label: 'Nuts' },
+    { id: 'contains-gluten', label: 'Gluten' },
+    { id: 'contains-lactose', label: 'Lactose' }
+  ];
 
-//   const handlePriceChange = (e) => {
-//     setPriceRange(e.target.value);
-//     onFilterChange({ dietary, priceRange: e.target.value, allergen });
-//   };
+  return (
+    <div className="bg-white p-4 rounded-lg shadow mb-4">
+      <h3 className="font-bold mb-3">Filters</h3>
+      
+      <div className="mb-4">
+        <h4 className="text-sm font-semibold mb-2">Dietary Needs</h4>
+        {dietaryOptions.map(option => (
+          <label key={option.id} className="flex items-center mb-1">
+            <input
+              type="checkbox"
+              checked={dietaryPreferences.includes(option.id)}
+              onChange={() => {
+                const updated = dietaryPreferences.includes(option.id)
+                  ? dietaryPreferences.filter(item => item !== option.id)
+                  : [...dietaryPreferences, option.id];
+                dispatch(setDietaryPreference(updated));
+              }}
+              className="mr-2"
+            />
+            {option.label}
+          </label>
+        ))}
+      </div>
 
-//   const handleAllergenChange = (e) => {
-//     setAllergen(e.target.value);
-//     onFilterChange({ dietary, priceRange, allergen: e.target.value });
-//   };
+      <div className="mb-4">
+        <h4 className="text-sm font-semibold mb-2">Exclude Allergens</h4>
+        {allergenOptions.map(option => (
+          <label key={option.id} className="flex items-center mb-1">
+            <input
+              type="checkbox"
+              checked={allergens.includes(option.id)}
+              onChange={() => {
+                const updated = allergens.includes(option.id)
+                  ? allergens.filter(item => item !== option.id)
+                  : [...allergens, option.id];
+                dispatch(setAllergens(updated));
+              }}
+              className="mr-2"
+            />
+            {option.label}
+          </label>
+        ))}
+      </div>
 
-//   return (
-//     <div style={{ marginBottom: '20px' }}>
-//       <h3>Filters</h3>
-//       <div>
-//         <strong>Dietary Preferences:</strong>
-//         <label>
-//           <input type="checkbox" name="Vegan" checked={dietary.Vegan} onChange={handleDietaryChange} />
-//           Vegan
-//         </label>
-//         <label>
-//           <input type="checkbox" name="GlutenFree" checked={dietary.GlutenFree} onChange={handleDietaryChange} />
-//           Gluten-Free
-//         </label>
-//         <label>
-//           <input type="checkbox" name="LactoseFree" checked={dietary.LactoseFree} onChange={handleDietaryChange} />
-//           Lactose-Free
-//         </label>
-//         <label>
-//           <input type="checkbox" name="NutFree" checked={dietary.NutFree} onChange={handleDietaryChange} />
-//           Nut-Free
-//         </label>
-//       </div>
-//       <div>
-//         <strong>Price Range:</strong>
-//         <select value={priceRange} onChange={handlePriceChange}>
-//           <option value="">All</option>
-//           <option value="under10">Under €10</option>
-//           <option value="10to20">€10 - €20</option>
-//           <option value="20to30">€20 - €30</option>
-//           <option value="30to40">€30 - €40</option>
-//           <option value="over40">Over €40</option>
-//         </select>
-//       </div>
-//       <div>
-//         <strong>Allergens:</strong>
-//         <select value={allergen} onChange={handleAllergenChange}>
-//           <option value="">All</option>
-//           <option value="containsNuts">Contains Nuts</option>
-//           <option value="containsGluten">Contains Gluten</option>
-//           <option value="containsLactose">Contains Lactose</option>
-//           <option value="containsOther">Contains Other Allergens</option>
-//           <option value="allergenFree">Allergen-Free</option>
-//         </select>
-//       </div>
-//     </div>
-//   );
-// };
+      <div className="mb-4">
+        <h4 className="text-sm font-semibold mb-2">Price Range (€)</h4>
+        <input
+          type="range"
+          min="0"
+          max="100"
+          value={priceRange[1]}
+          onChange={(e) => dispatch(setPriceRange([0, parseInt(e.target.value)]))}
+          className="w-full"
+        />
+        <div className="flex justify-between text-xs">
+          <span>0</span>
+          <span>Up to {priceRange[1]}</span>
+        </div>
+      </div>
 
-// export default FilterPanel;
+      <button 
+        onClick={() => dispatch(resetFilters())}
+        className="text-sm text-blue-600 hover:underline"
+      >
+        Reset Filters
+      </button>
+    </div>
+  );
+};
+
+export default FilterPanel;
