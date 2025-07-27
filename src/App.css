@@ -1,42 +1,75 @@
-/* #root {
-  max-width: 1280px;
+/* Base Styles */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --max-width: 1280px;
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: var(--max-width);
   margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
-} */
-
-/* .logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+  padding: 0 1rem;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
+/* Responsive Grid Adjustments */
+@media (max-width: 640px) {
+  .dishes-grid {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    gap: 1rem;
   }
-  to {
-    transform: rotate(360deg);
+  
+  .filter-panel {
+    width: 100%;
+    margin-bottom: 1.5rem;
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
+@media (min-width: 641px) and (max-width: 1024px) {
+  /* Tablet Styles */
+  .dishes-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  
+  .dish-detail-page {
+    flex-direction: column;
   }
 }
 
-.card {
-  padding: 2em;
+/* Touch Targets for Mobile */
+@media (pointer: coarse) {
+  button, .clickable {
+    min-width: 48px;
+    min-height: 48px;
+  }
 }
 
-.read-the-docs {
-  color: #888;
-} */
+/* Optimized Filter Panel for Tablet */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .filter-panel {
+    position: sticky;
+    top: 1rem;
+    height: fit-content;
+  }
+  
+  .content-wrapper {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .no-print {
+    display: none;
+  }
+  
+  body {
+    font-size: 12pt;
+    background: none;
+  }
+}

@@ -55,10 +55,22 @@ const DishList = () => {
   }
 
   return (
-    <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
-      {filteredDishes.map(dish => (
-        <DishDetail key={dish.id} dish={dish} />
-      ))}
+    <div className="content-wrapper">
+      <div className="filter-panel no-print">
+        <FilterPanel />
+      </div>
+      
+      <div className="dishes-grid">
+        {status === 'loading' ? (
+          <LoadingSkeleton type="dish" count={6} />
+        ) : filteredDishes.map(dish => (
+          <DishDetail 
+            key={dish.id} 
+            dish={dish} 
+            className="hover:scale-[1.02] transition-transform"
+          />
+        ))}
+      </div>
     </div>
   );
 };
