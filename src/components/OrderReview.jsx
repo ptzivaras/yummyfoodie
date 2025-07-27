@@ -18,6 +18,11 @@ const OrderReview = () => {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1500));
       dispatch(clearCart());
+      
+      console.log("Order submitted:", JSON.stringify(items, null, 2));
+      alert(`Order sent to kitchen! Total: €${total.toFixed(2)}`);
+      navigate('/');
+
       setShowSuccess(true);
       setTimeout(() => navigate('/'), 2000);
     } finally {

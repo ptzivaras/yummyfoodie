@@ -10,6 +10,13 @@ const DishList = () => {
   const { list, status, error } = useSelector(state => state.dishes);
   const { dietaryPreferences, allergens, priceRange } = useSelector(state => state.filters);
 
+  
+  useEffect(() => {
+    return () => {
+      dispatch({ type: 'navigation/RESET' });
+    };
+  }, [dispatch]);
+
   useEffect(() => {
     if (status === 'idle') {
       dispatch(fetchDishes());
