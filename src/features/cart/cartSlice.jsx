@@ -1,12 +1,24 @@
-// src/features/cart/cartSlice.js
 import { createSlice } from '@reduxjs/toolkit'
 
-export const cartSlice = createSlice({
+const cartSlice = createSlice({
   name: 'cart',
-  initialState: [],
+  initialState: {
+    items: [],   // array of dish objects in the cart
+  },
   reducers: {
-    // later: addToCart, removeFromCart…
+    addToCart(state, action) {
+      // action.payload should be the full dish object
+      state.items.push(action.payload)
+    },
+    removeFromCart(state, action) {
+      // action.payload is the dish id
+      state.items = state.items.filter(item => item.id !== action.payload)
+    },
+    clearCart(state) {
+      state.items = []
+    },
   }
 })
 
+export const { addToCart, removeFromCart, clearCart } = cartSlice.actions
 export default cartSlice.reducer

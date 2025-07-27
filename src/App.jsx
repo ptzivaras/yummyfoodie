@@ -3,6 +3,7 @@ import Header from './components/Header';
 import { Routes, Route } from 'react-router-dom';
 import DishList from './components/DishList';
 import DishDetail from './components/DishDetail';
+import DishDetailPage from './components/DishDetailPage'
 import OrderReview from './components/OrderReview';
 
 const App = () => {
@@ -13,6 +14,8 @@ const App = () => {
       <Routes>
         <Route path="/" element={<DishList />} />
         {/* <Route path="/dishes/:id" element={<DishDetail />} /> */}
+        {/* <Route path="/dishes/:id" element={<DishDetail />} /> */}
+        <Route path="/dishes/:id" element={<DishDetailPage />} />
         <Route path="/order" element={<OrderReview />} />
       </Routes>
       </main>
